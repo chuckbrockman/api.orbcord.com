@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::connection('mysql_data')->create('page_audit_referrers', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('page_speed_audit_id')->index();
+            $table->string('url', 512)->index();
+            $table->string('domain')->index();
+            $table->string('host')->index();
+            $table->string('subdomain')->nullable();
+            $table->dateTime('created_at')->useCurrent()->index();
+            $table->dateTime('updated_at')->nullable()->default(\DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
+            $table->dateTime('deleted_at')->nullable()->index();
+
+            $table->foreign('page_speed_audit_id')->references('id')->on('page_speed_audits')->onDelete('NO ACTION');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::connection('mysql_data')->dropIfExists('page_audit_referrers');
+    }
+};
