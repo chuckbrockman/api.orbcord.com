@@ -52,22 +52,15 @@ class CalculateGooglePagespeed implements ShouldQueue
             }
             $url = $data['url'];
 
-            // $strategies = ['MOBILE','DESKTOP'];
-            $strategies = ['MOBILE'];
-            foreach ( $strategies as $strategy ) {
-                \Log::info('Strategy: ' . $strategy);
+            \Log::info('--START--');
 
-                $pageSpeedAudit = GooglePagespeedInsights::run($url, 'PERFORMANCE', $strategy);
+            \Log::info('WebhoodData id: ' . $webhook->id);
+            $pageSpeedAudit = GooglePagespeedInsights::run($url);
 
-                \Log::info('pageSpeedAudit id: ' . $pageSpeedAudit->id);
+            \Log::info('Page Speed Audit id: ' . $pageSpeedAudit->id);
+            $webhook->pageSpeedAudits()->attach($pageSpeedAudit->id);
 
-                if ( $webhook->has('pageSpeedAudits')->count() === 0 ) {
-                    $webhook->pageSpeedAudits()->attach($pageSpeedAudit->id);
-                }
-
-                sleep(5);
-            }
-
+            \Log::info('--END--');
 
         // } catch ( \Exception $e ) {
 

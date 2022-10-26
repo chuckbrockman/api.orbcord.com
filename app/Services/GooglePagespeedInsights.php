@@ -43,6 +43,8 @@ class GooglePagespeedInsights
 
         set_time_limit(0);
 
+        \Log::info('Starting Google Pagespeed Insights');
+
         $client = new Client([
             'base_uri' => 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed',
             'headers' => [
@@ -57,19 +59,19 @@ class GooglePagespeedInsights
         ]);
         $response = $client->request('GET');
 
-        $pageSpeedAudit = PageSpeedAudit::query()
-                            ->where('audit_source', 'google_pagespeed')
-                            ->where('audit_type', $category)
-                            ->where('device_type', $strategy)
-                            ->where('url', $url)
-                            ->where('created_at', '>=', now()->subHour(1))
-                            ->orderBy('created_at', 'desc')
-                            // ->limit(1)
-                            ->first();
+        // $pageSpeedAudit = PageSpeedAudit::query()
+        //                     ->where('audit_source', 'google_pagespeed')
+        //                     ->where('audit_type', $category)
+        //                     ->where('device_type', $strategy)
+        //                     ->where('url', $url)
+        //                     ->where('created_at', '>=', now()->subHour(1))
+        //                     ->orderBy('created_at', 'desc')
+        //                     // ->limit(1)
+        //                     ->first();
 
-        if ( $pageSpeedAudit ) {
-            return $pageSpeedAudit;
-        }
+        // if ( $pageSpeedAudit ) {
+        //     return $pageSpeedAudit;
+        // }
 
         // API body response
         $body = $response->getBody();
@@ -84,6 +86,8 @@ class GooglePagespeedInsights
         $normalized = PageSpeedAuditService::normalizeLighthouseData($lighthouse);
         $score = $lighthouse['categories']['performance']['score'];
 
+        \Log::info('Google Pagespeed Insights API success');
+
         $pageSpeedAudit = new PageSpeedAudit;
         $pageSpeedAudit->audit_source = 'GOOGLE_PAGESPEED';
         $pageSpeedAudit->audit_type = $category;
@@ -94,6 +98,8 @@ class GooglePagespeedInsights
         $pageSpeedAudit->score = $score;
         $pageSpeedAudit->data_normalized = $normalized;
         $pageSpeedAudit->save();
+
+        \Log::info('Save Page Speed Audit to DB');
 
         return $pageSpeedAudit->refresh();
     }

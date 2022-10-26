@@ -21,14 +21,17 @@ class SendPerfomanceScoreResult extends Mailable
      */
     public $pageSpeedAudit;
 
+    public $webhookData;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($pageSpeedAudit)
+    public function __construct($pageSpeedAudit, $webhookData)
     {
         $this->pageSpeedAudit = $pageSpeedAudit;
+        $this->webhookData = $webhookData;
     }
 
     /**
@@ -38,8 +41,10 @@ class SendPerfomanceScoreResult extends Mailable
      */
     public function envelope()
     {
+
+
         return new Envelope(
-            subject: 'Perfomance Score Result',
+            subject: 'Perfomance Impact Score',
             replyTo: ['hi@chuckbrockman.com']
         );
     }

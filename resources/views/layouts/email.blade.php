@@ -181,7 +181,7 @@
     <!--<![endif]-->
 </head>
 
-<body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #e7e7e7;color: #000000">
+<body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%; background-color: #e7e7e7; color: #000000">
     <!--[if IE]><div class="ie-container"><![endif]-->
     <!--[if mso]><div class="mso-container"><![endif]-->
     {{-- Email layout table --}}
@@ -192,9 +192,9 @@
                     {{-- Header --}}
                     <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #e7e7e7;"><![endif]-->
                     <div class="u-row-container" style="padding: 0px;background-color: transparent">
-                        <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #131022;">
+                        <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #FFFFFF;">
                             <div style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
-                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #131022;"><![endif]-->
+                                <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #FFFFFF;"><![endif]-->
 
                                 <!--[if (mso)|(IE)]><td align="center" width="600" style="width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
                                 <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
@@ -204,9 +204,7 @@
                                             style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
                                             <!--<![endif]-->
 
-                                            <table id="u_content_image_1" style="font-family:Arial, Helvetica, sans-serif;"
-                                                role="presentation" cellpadding="0" cellspacing="0" width="100%"
-                                                border="0">
+                                            <table id="u_content_image_1" style="font-family:Arial, Helvetica, sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                                                 <tbody>
                                                     <tr>
                                                         <td class="v-container-padding-padding"
@@ -217,10 +215,10 @@
                                                                 border="0">
                                                                 <tr>
                                                                     <td class="v-text-align"
-                                                                        style="padding-right: 0px;padding-left: 0px;"
+                                                                        style="padding-right: 0px; padding-left: 0px; text-align: center"
                                                                         align="left">
-                                                                        <a href="https://chuckbrockman.com/" target="_blank" style="text-decoration:none; color:#FFFFFF; font-size:25px;">
-                                                                            Chuck Brockman
+                                                                        <a href="https://chuckbrockman.com/" target="_blank" style="text-decoration:none; color:#131022; font-size:25px;">
+                                                                            &mdash; Chuck Brockman &mdash;
                                                                         </a>
                                                                     </td>
                                                                 </tr>

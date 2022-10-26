@@ -6,17 +6,8 @@ $css = [
 ];
 
 
-$pageSpeedAudit = \App\Models\PageSpeedAudit::find(1);
-$webhook = \App\Models\WebhookData::query()
-            ->join('page_speed_audit_webhook_data', 'page_speed_audit_webhook_data.webhook_data_id', '=', 'webhook_data.id')
-            ->where('page_speed_audit_webhook_data.page_speed_audit_id', 1)
-            ->orderBy('page_speed_audit_webhook_data.webhook_data_id', 'DESC')
-            ->first();
-
-$body = json_decode($webhook->body, true);
-
-$ordersPerMonth = $body['orders_per_month'] ?: 1000;
-$averageOrderValue = $body['average_order_value'] ?: 50;
+$ordersPerMonth = $webhookData['orders_per_month'] ?: 1000;
+$averageOrderValue = $webhookData['average_order_value'] ?: 50;
 
 $lcpDisplayValue =  $pageSpeedAudit->data_normalized['breakdown']['firstContentfulPaint']['displayValue'];
 $lcpNumericValue =  (float) $pageSpeedAudit->data_normalized['breakdown']['firstContentfulPaint']['numericValue'] / 1000;
@@ -124,7 +115,7 @@ $difference = ($bestCaseRevenue - $estimatedRevenue);
                                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word; padding:10px 50px 0 40px;font-family:Arial, Helvetica, sans-serif;" align="center">
                                         <div style="font-size: 27px; text-align:center; margin: 15px 0; font-weight:bold;">
                                             Performance Impact Score<br>
-                                            <span style="font-size: 20px">&mdash; Mobile &mdash;</span>
+                                            <span style="font-size: 20px">Mobile</span>
                                         </div>
 
                                         <div style="border-radius:100%;height:150px;width:150px; /*border-color:{{ $lcpColor }}; border-width: 10px; border-style:solid'*/ background-color:{{ $lcpColor }}">
@@ -150,8 +141,8 @@ $difference = ($bestCaseRevenue - $estimatedRevenue);
                                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:25px 0 0 0;font-family:Arial, Helvetica, sans-serif;" align="left">
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                             <tr>
-                                                <td class="v-text-align" style="padding-right: 0px; padding-left: 0px;" align="center">
-                                                    <h1 class="v-text-align v-font-size" style="margin: 0px; word-wrap: break-word; font-weight: bold; font-family: 'Raleway',sans-serif; font-size: 27px; color: #FFFFFF">
+                                                <td class="v-text-align" style="padding-right: 10px; padding-left: 10px;" align="center">
+                                                    <h1 class="v-text-align v-font-size" style="margin: 0px; word-wrap: break-word; font-weight: bold; font-family: Arial, Helvetica, sans-serif; font-size: 27px; color: #FFFFFF">
                                                         Performance Impact on Revenue
                                                         {{-- <br>
                                                         <span style="font-size: 20px">&mdash; Mobile &mdash;</span> --}}
@@ -186,26 +177,33 @@ $difference = ($bestCaseRevenue - $estimatedRevenue);
                                                                     ${{ number_format($bestCaseRevenue) }}
                                                                 </td>
                                                                 <td style=" vertical-align:middle; padding-bottom: 10px; color: #FFFFFF">
-                                                                    <span style="border-bottom: 1px solid #FFFFFF;">Optimized</span> Revenue Potential
+                                                                    <span style="border-bottom: 1px solid #FFFFFF;">Optimized</span> Revenue
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td align="right" style="font-weight: bold; font-size:30px;  color: #FFFFFF"">
+                                                                <td align="right" style="font-weight: bold; font-size:30px;  color: #FFFFFF">
                                                                     ${{ number_format($estimatedRevenue) }}
                                                                 </td>
                                                                 <td style=" vertical-align:middle; color: #FFFFFF">
-                                                                    <span style="border-bottom: 1px solid #FFFFFF;">Your</span> Performance Revenue
+                                                                    <span style="border-bottom: 1px solid #FFFFFF;">Adjusted</span> Revenue
                                                                 </td>
                                                             </tr>
                                                             <tr style="background-color: {{ $lcpColor }};">
-                                                                <td style="font-size: 75px; font-weight: bold; padding: 10px 0 25px 0; color: #FFFFFF" align="right">
-                                                                    ${{ number_format($difference) }}
+                                                                <td align="right">
+                                                                    <div style="border-top: 1px solid; #FFFFFF; color: #FFFFFF; width:50%;"></div>
+                                                                    <div style="font-size: 75px; font-weight: bold; color: #FFFFFF;">
+                                                                        ${{ number_format($difference) }}
+                                                                    </div>
                                                                 </td>
-                                                                <td style=" vertical-align:middle; color: #FFFFFF;">
-                                                                    <span style="border-bottom: 1px solid #FFFFFF;">Missed Revenue this Month</span>
+                                                                <td style="vertical-align:middle; color: #FFFFFF;">
+                                                                    <span style="border-bottom: 1px solid #FFFFFF; line-height: 75px;">Missed Revenue</span>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
+                                                            <tr style="background-color: {{ $lcpColor }};">
+                                                                <td align="right" colspan="2" style="padding: 0px;">
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
@@ -296,7 +294,7 @@ $difference = ($bestCaseRevenue - $estimatedRevenue);
 
                                         <div class="v-text-align" style="color: #5c5c5c; line-height: 170%; text-align: left; word-wrap: break-word;">
                                             <p style="font-size: 20px; text-align:center; margin: 15px 0;">
-                                                Your conversion rate based on {{ $lcpDisplayValue }} load time:
+                                                Conversion rate adjusted for a {{ $lcpDisplayValue }} load time:
                                             </p>
 
                                              <p style="font-size:50px; text-align:center; color:{{ $lcpColor }}">
@@ -383,8 +381,8 @@ $difference = ($bestCaseRevenue - $estimatedRevenue);
                                 <tr>
                                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word; padding:35px 35px 15px 35px;font-family:Arial, Helvetica, sans-serif; color: #FFFFFF" align="center">
                                         <div class="v-text-align" align="center">
-                                            <p style="font-size: 20px;">
-                                                Stop leaving money on the table.  Schedule a time to find out how you can increase your sales with a Performance Impact Assessment.
+                                            <p style="font-size: 20px; line-height: 27px;">
+                                                Stop leaving money on the table.  Find out how you can increase your sales with a Performance Impact Assessment.
                                             </p>
                                         </div>
 
@@ -399,7 +397,7 @@ $difference = ($bestCaseRevenue - $estimatedRevenue);
                                                 style="box-sizing: border-box;display: inline-block;font-family:Arial, Helvetica, sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #131022; border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px; width:47%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;border-top-color: #ffffff; border-top-style: solid; border-top-width: 3px; border-left-color: #ffffff; border-left-style: solid; border-left-width: 3px; border-right-color: #ffffff; border-right-style: solid; border-right-width: 3px; border-bottom-color: #ffffff; border-bottom-style: solid; border-bottom-width: 3px;">
                                                 <span style="display:block;padding:16px 20px;line-height:120%;">
                                                     <strong>
-                                                        <span style="font-size: 16px; line-height: 19.2px; font-family: Raleway, sans-serif;">
+                                                        <span style="font-size: 25px; line-height: 19.2px; font-family: Arial, Helvetica, sans-serif;">
                                                             Let's Talk!
                                                         </span>
                                                     </strong>
