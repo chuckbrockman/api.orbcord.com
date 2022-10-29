@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use Log;
+use App\Console\Commands\SendPageSpeedScore;
 use App\Models\WebhookData;
 use App\Services\GooglePagespeedInsights;
 use Illuminate\Bus\Queueable;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 
 class CalculateGooglePagespeed implements ShouldQueue
 {
@@ -59,6 +61,9 @@ class CalculateGooglePagespeed implements ShouldQueue
 
             \Log::info('Page Speed Audit id: ' . $pageSpeedAudit->id);
             $webhook->pageSpeedAudits()->attach($pageSpeedAudit->id);
+
+            \Log::info('Send Email ');
+            Artisan::call('pagespeed-score:send ' . $webhook->id);
 
             \Log::info('--END--');
 

@@ -42,9 +42,14 @@ class SendPerfomanceScoreResult extends Mailable
     public function envelope()
     {
 
+        $subject = '🚦 Perfomance Impact Score';
+        if ( isset($this->webhookData['url']) ) {
+            $subject .= ' - ' . rtrim(preg_replace('#^https?://#', '', $this->webhookData['url']), '/');
+        }
 
         return new Envelope(
-            subject: 'Perfomance Impact Score',
+            subject: $subject,
+            from: new Address('hi@chuckbrockman.com', 'Chuck Brockman'),
             replyTo: ['hi@chuckbrockman.com']
         );
     }

@@ -31,7 +31,6 @@ class SendPageSpeedScore extends Command
      */
     public function handle()
     {
-
         $webhook = WebhookData::query()
                     ->select('webhook_data.*', 'page_speed_audit_webhook_data.page_speed_audit_id')
                     ->join('page_speed_audit_webhook_data', 'page_speed_audit_webhook_data.webhook_data_id', '=', 'webhook_data.id')
