@@ -19,6 +19,7 @@
         "philcook/gtmetrix": "^2.0",
         "predis/predis": "^2.0",
         "silber/page-cache": "^1.0",
+        "spatie/lighthouse-php": "^0.0.7",
         "symfony/http-client": "^6.1",
         "symfony/mailgun-mailer": "^6.1"
     },

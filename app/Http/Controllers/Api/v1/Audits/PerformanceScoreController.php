@@ -43,7 +43,7 @@ class PerformanceScoreController extends Controller
         $webhookData->save();
 
         // Start tests
-        CalculateGooglePagespeed::dispatch($webhookData->id);
+        // CalculateGooglePagespeed::dispatch($webhookData->id);
         // CalculateGtmetrixPagespeed::dispatch($webhookData->id);
 
         return $this->success([]);

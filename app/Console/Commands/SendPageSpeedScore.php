@@ -15,7 +15,8 @@ class SendPageSpeedScore extends Command
      *
      * @var string
      */
-    protected $signature = 'pagespeed-score:send {webhookDataId}';
+    protected $signature = 'pagespeed-score:send
+                {webhookDataId : The ID of the webhook_data record}';
 
     /**
      * The console command description.

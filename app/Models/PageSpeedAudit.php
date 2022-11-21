@@ -28,6 +28,7 @@ class PageSpeedAudit extends Model
      * @var array
      */
     protected $casts = [
+        'meta_data' => 'array',
         'data_raw' => 'array',
         'data_normalized' => 'array',
         'referrer' => 'array',

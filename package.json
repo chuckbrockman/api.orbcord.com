@@ -13,6 +13,8 @@
     },
     "dependencies": {
         "bootstrap": "^5.2.2",
+        "chrome-launcher": "^0.15.1",
+        "lighthouse": "^9.6.8",
         "spacetime": "^7.2.0"
     }
 }

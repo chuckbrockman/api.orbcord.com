@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('device_type', 25)->index();
             $table->decimal('score', 8, 4)->default(0);
             $table->json('data_raw');
-            $table->json('data_normalized')->null();
+            $table->json('data_normalized')->nullable();
             $table->unsignedInteger('ip_address');
             $table->json('referrer')->nullable();
             $table->dateTime('created_at')->useCurrent()->index();
