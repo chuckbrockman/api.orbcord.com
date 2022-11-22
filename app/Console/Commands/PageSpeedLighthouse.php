@@ -24,7 +24,8 @@ class PageSpeedLighthouse extends Command
      */
     protected $signature = 'pagespeed:lighthouse
             {webhookDataId : The ID of the webhook_data record}
-            {sendEmail? : Send an email with the score}';
+            {sendEmail? : Send an email with the score}
+            {--queue}';
 
     /**
      * The console command description.
@@ -55,19 +56,21 @@ class PageSpeedLighthouse extends Command
         // Set the
         $url = $data['url'];
 
+        Log::info($url);
 
+        // Get Lighthouse results
         $result = Lighthouse::url($url)
                     ->categories(Category::Performance)
                     ->run();
 
-
+        // Save report audit results as file since it's a large amount of data
         $reportFilename = (string) Str::orderedUuid() . '.json';
         Storage::put('lighthouse/' . $reportFilename, json_encode($result->rawResults('report')));
-
 
         // $audits = $result->audits();
         // $audits['finalUrl'] = $result->rawResults('lhr.finalUrl');
 
+        // Normalize the data to reduce db storage
         $dataNormalized = [
             'score' => $result->rawResults('lhr.categories.performance.score'),
             'breakdown' => [
@@ -98,6 +101,7 @@ class PageSpeedLighthouse extends Command
         $averageOrderValue = (int) ( isset($data['average_order_value']) && !!$data['average_order_value'] ? preg_replace('/[^\d.]/', '', $data['average_order_value']) : 100 );
         $email = ( isset($data['email']) && !!$data['email'] ? $data['email'] : null );
 
+        // Add meta data from the webhook
         $metaData = [
             'url' => $url,
             'email' => $email,
