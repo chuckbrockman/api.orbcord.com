@@ -22,37 +22,48 @@ $lcpNumericValue =  (float) $pageSpeedAudit->data_normalized['breakdown']['large
 \Log::info('LCP:' . $lcpNumericValue);
 
 $pageSpeedScore = number_format($pageSpeedAudit->score * 100);
+/*$lcpColor = $css['good'];
 $pageSpeedGrade = 'A';
 if ( $pageSpeedScore >= 90 ) {
     $pageSpeedGrade = 'A';
+    $lcpColor = $css['good'];
 } elseif ( $pageSpeedScore >= 76 && $pageSpeedScore < 90 ) {
     $pageSpeedGrade = 'B';
+    $lcpColor = $css['fair'];
 } elseif ( $pageSpeedScore >= 63 && $pageSpeedScore < 76 ) {
     $pageSpeedGrade = 'C';
+    $lcpColor = $css['fair'];
 } elseif ( $pageSpeedScore >= 50 && $pageSpeedScore < 63 ) {
     $pageSpeedGrade = 'D';
+    $lcpColor = $css['poor'];
 } elseif ( $pageSpeedScore < 50 ) {
     $pageSpeedGrade = 'F';
-}
-
-if ( $lcpNumericValue <= 1 ) {
-    $pageSpeedGrade = 'A';
-} elseif ( $lcpNumericValue > 1 && $lcpNumericValue <= 2.4 ) {
-    $pageSpeedGrade = 'B';
-} elseif ( $lcpNumericValue > 2.4 && $lcpNumericValue <= 4 ) {
-    $pageSpeedGrade = 'C';
-} elseif ( $lcpNumericValue > 4 && $lcpNumericValue <= 5.7 ) {
-    $pageSpeedGrade = 'D';
-} elseif ( $lcpNumericValue > 5.7 ) {
-    $pageSpeedGrade = 'F';
-}
+    $lcpColor = $css['poor'];
+}*/
 
 $lcpColor = $css['good'];
+if ( $lcpNumericValue <= 1 ) {
+    $pageSpeedGrade = 'A';
+} elseif ( $lcpNumericValue > 1 && $lcpNumericValue <= 2.5 ) {
+    $pageSpeedGrade = 'B';
+    $lcpColor = $css['fair'];
+} elseif ( $lcpNumericValue > 2.5 && $lcpNumericValue <= 4 ) {
+    $pageSpeedGrade = 'C';
+    $lcpColor = $css['fair'];
+} elseif ( $lcpNumericValue > 4 && $lcpNumericValue <= 5.7 ) {
+    $pageSpeedGrade = 'D';
+    $lcpColor = $css['poor'];
+} elseif ( $lcpNumericValue > 5.7 ) {
+    $pageSpeedGrade = 'F';
+    $lcpColor = $css['poor'];
+}
+
+/* $lcpColor = $css['good'];
 if ( $lcpNumericValue > 2.5 && $lcpNumericValue <= 4 ) {
     $lcpColor = $css['fair'];
 } elseif ( $lcpNumericValue > 5 ) {
     $lcpColor = $css['poor'];
-}
+} */
 
 
 (float) $conversionRate = $bestConversionRate = 3.05;
@@ -64,7 +75,7 @@ if ( $lcpNumericValue > 1 && $lcpNumericValue <= 2.4 ) {
     $conversionRate = 0.95;
 } elseif ( $lcpNumericValue > 4.2 && $lcpNumericValue <= 5.7 ) {
     $conversionRate = 0.6;
-} elseif ( $lcpNumericValue > 5 )  {
+} elseif ( $lcpNumericValue > 5.7 )  {
     // $conversionRate = 0.6 - ((( $lcpNumericValue - 5 ) * 0.02) * 0.6);
     $conversionRate = 0.6 - ((( $lcpNumericValue - 5 ) * 0.0442) * 0.6);
 }

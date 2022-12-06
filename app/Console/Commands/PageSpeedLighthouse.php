@@ -9,11 +9,11 @@ use App\Jobs\CalculateLightspeedScore;
 use App\Models\PageSpeedAudit;
 use App\Models\WebhookData;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PageSpeedLighthouse extends Command
 {
@@ -25,7 +25,7 @@ class PageSpeedLighthouse extends Command
     protected $signature = 'pagespeed:lighthouse
             {webhookDataId : The ID of the webhook_data record}
             {sendEmail? : Send an email with the score}
-            {--queue}';
+            {--queue : Whether the job should be queued}';
 
     /**
      * The console command description.
@@ -65,7 +65,14 @@ class PageSpeedLighthouse extends Command
 
         // Save report audit results as file since it's a large amount of data
         $reportFilename = (string) Str::orderedUuid() . '.json';
-        Storage::put('lighthouse/' . $reportFilename, json_encode($result->rawResults('report')));
+        // Storage::put('lighthouse/' . $reportFilename, json_encode($result->rawResults('report')));
+
+        // Upload to Backblaze B2
+        Log::info('Uploading file to B2: ' . $reportFilename);
+        Storage::disk('s3')->put(
+            config('_pagespeed.bucket') . '/' . $reportFilename,
+            json_encode($result->rawResults('report'))
+        );
 
         // $audits = $result->audits();
         // $audits['finalUrl'] = $result->rawResults('lhr.finalUrl');

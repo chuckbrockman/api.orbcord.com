@@ -5,6 +5,8 @@
  * @author Chuck Brockman <chuck@orbcord.com>
  */
 return [
+    // Backblaze B2 bucket
+    'bucket' => 'gtmetrix',
 
     'api' => [
         'username' => env('GTMETRIX_API_USERNAME'),

@@ -57,7 +57,7 @@ class EmailPageSpeedLighthousePerformanceImpactScore extends Command
         }
 
         // Get the contents of the file
-        $fileContents = Storage::get($reportFilename);
+        $fileContents = Storage::disk('s3')->get($reportFilename);
 
         // Check to make sure it's JSON
         if ( !Str::isJson($fileContents) ) {

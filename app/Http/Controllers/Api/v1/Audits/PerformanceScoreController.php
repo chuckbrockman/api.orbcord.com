@@ -42,7 +42,7 @@ class PerformanceScoreController extends Controller
         $webhookData->save();
 
         // Start tests
-        Artisan::call('pagespeed:lighthouse ' . $webhookData->id . ' true --queue');
+        Artisan::queue('pagespeed:lighthouse ' . $webhookData->id . ' true --queue');
         // CalculateGooglePagespeed::dispatch($webhookData->id);
         // CalculateGtmetrixPagespeed::dispatch($webhookData->id);
 
