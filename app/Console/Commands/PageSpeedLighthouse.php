@@ -45,6 +45,8 @@ class PageSpeedLighthouse extends Command
 
         $webhook = WebhookData::findOrFail($this->argument('webhookDataId'));
 
+        Log::info('Webhook Data ID: ' . $webhook->id);
+
         // Get form data from webhook
         $data = json_decode($webhook->body, true);
 

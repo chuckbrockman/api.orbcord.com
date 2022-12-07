@@ -14,8 +14,8 @@ $averageOrderValue = (int) ( isset($pageSpeedAudit->meta_data['average_order_val
 \Log::info('AOV:' . $averageOrderValue);
 
 
-$lcpDisplayValue =  $pageSpeedAudit->data_normalized['breakdown']['firstContentfulPaint']['displayValue'];
-$lcpNumericValue =  (float) $pageSpeedAudit->data_normalized['breakdown']['firstContentfulPaint']['numericValue'] / 1000;
+// $lcpDisplayValue =  $pageSpeedAudit->data_normalized['breakdown']['firstContentfulPaint']['displayValue'];
+// $lcpNumericValue =  (float) $pageSpeedAudit->data_normalized['breakdown']['firstContentfulPaint']['numericValue'] / 1000;
 
 $lcpDisplayValue =  $pageSpeedAudit->data_normalized['breakdown']['largestContentfulPaint']['displayValue'];
 $lcpNumericValue =  (float) $pageSpeedAudit->data_normalized['breakdown']['largestContentfulPaint']['numericValue'] / 1000;
