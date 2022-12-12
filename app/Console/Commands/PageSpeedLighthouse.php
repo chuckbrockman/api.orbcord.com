@@ -144,6 +144,7 @@ class PageSpeedLighthouse extends Command
             Log::info('Send email requested');
 
             if ( !!$email ) {
+                sleep(10);
                 Log::info('Sending Email');
                 Artisan::call('pagespeed:email ' . $pageSpeedAudit->id);
             } else {

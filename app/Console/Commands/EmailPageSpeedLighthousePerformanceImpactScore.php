@@ -49,10 +49,10 @@ class EmailPageSpeedLighthousePerformanceImpactScore extends Command
         }
 
         // Set path and file
-        $reportFilename = 'lighthouse/' . $pageSpeedAudit->report_filename;
+        $reportFilename = config('_pagespeed.bucket') . '/' . $pageSpeedAudit->report_filename;
 
         // Check to make sure the file exists
-        if ( !Storage::exists($reportFilename) ) {
+        if ( !Storage::disk('s3')->exists($reportFilename) ) {
             throw new \Exception('Google Page Speed Report File does not exists');
         }
 
