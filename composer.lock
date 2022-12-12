@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eef7630cea4692098ec3916e7bdcf910",
+    "content-hash": "f1970c6d3ee5b51a7a62b723f98a27ff",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4374,6 +4374,66 @@
                 "source": "https://github.com/JosephSilber/page-cache/tree/v1.0.8"
             },
             "time": "2022-02-08T14:24:36+00:00"
+        },
+        {
+            "name": "spatie/lighthouse-php",
+            "version": "0.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/lighthouse-php.git",
+                "reference": "8c2cddce44a51fe55931a95f7d24c29de122e9de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/lighthouse-php/zipball/8c2cddce44a51fe55931a95f7d24c29de122e9de",
+                "reference": "8c2cddce44a51fe55931a95f7d24c29de122e9de",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/process": "^6.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.2",
+                "pestphp/pest": "^1.22.1",
+                "spatie/pest-plugin-snapshots": "^1.1",
+                "spatie/ray": "^1.36",
+                "spatie/temporary-directory": "^2.1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Lighthouse\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Run Google Lighthouse using PHP",
+            "homepage": "https://github.com/spatie/lighthouse-php",
+            "keywords": [
+                "lighthouse-php",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/lighthouse-php/issues",
+                "source": "https://github.com/spatie/lighthouse-php/tree/0.0.7"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-11-06T21:08:30+00:00"
         },
         {
             "name": "symfony/console",

@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Api\v1\Audits;
 use App\Jobs\CalculateGooglePagespeed;
 use App\Jobs\CalculateGtmetrixPagespeed;
 use App\Models\WebhookData;
-use App\Services\GooglePagespeedInsights;
-use App\Services\Gtmetrix;
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class PerformanceScoreController extends Controller
 {
@@ -43,7 +42,8 @@ class PerformanceScoreController extends Controller
         $webhookData->save();
 
         // Start tests
-        CalculateGooglePagespeed::dispatch($webhookData->id);
+        Artisan::queue('pagespeed:lighthouse ' . $webhookData->id . ' true --queue');
+        // CalculateGooglePagespeed::dispatch($webhookData->id);
         // CalculateGtmetrixPagespeed::dispatch($webhookData->id);
 
         return $this->success([]);

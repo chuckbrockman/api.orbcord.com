@@ -5,6 +5,8 @@
  * @author Chuck Brockman <chuck@orbcord.com>
  */
 return [
+    // Backblaze B2 bucket
+    'bucket' => 'lighthouse',
 
     // Google Pagespeed Insights
     'google' => [

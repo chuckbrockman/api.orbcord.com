@@ -5,6 +5,8 @@ namespace App\Services;
 use Illuminate\Support\Str;
 use Exception;
 use GuzzleHttp\Client;
+use Spatie\Lighthouse\Enums\Category;
+use Spatie\Lighthouse\Lighthouse;
 use App\Models\PageSpeedAudit;
 use App\Models\PageSpeedAuditSource;
 use App\Models\WebhookData;
@@ -44,6 +46,54 @@ class GooglePagespeedInsights
         set_time_limit(0);
 
         \Log::info('Starting Google Pagespeed Insights');
+
+        $result = Lighthouse::url($url)
+                        ->categories(Category::Performance)
+                        ->run();
+
+        \Log::info('Google Pagespeed Insights API success');
+
+        // $lighthouse = $result->rawResults();
+        // $normalized = PageSpeedAuditService::normalizeLighthouseData($lighthouse);
+
+
+        $audits = $result->audits();
+        $audits['finalUrl'] = $result->rawResults('lhr.finalUrl');
+
+        $breakdown = [
+            'speedIndex' => $result->audit('speed-index'),
+            'firstContentfulPaint' => $result->audit('first-contentful-paint'),
+            'largestContentfulPaint' => $result->audit('largest-contentful-paint'),
+            'timeToInteractive' => $result->audit('interactive'),
+            'totalBlockingTime' => $result->audit('total-blocking-time'),
+            'cumulativeLayoutShift' => $result->audit('cumulative-layout-shift'),
+        ];
+        $audits['screenshots'] = [
+            'final' => $result->rawResults('lhr.audits.final-screenshot.details'),
+            'fullpage' => $result->rawResults('lhr.audits.full-page-screenshot.details.screenshot'),
+            'thumbnails' => collect($result->rawResults('lhr.audits.screenshot-thumbnails.details'))->pluck('items')->all(),
+        ];
+
+        $pageSpeedAudit = new PageSpeedAudit;
+        $pageSpeedAudit->audit_source = 'GOOGLE_PAGESPEED';
+        $pageSpeedAudit->audit_type = 'PERFORMANCE';
+        $pageSpeedAudit->device_type = 'MOBILE';
+        $pageSpeedAudit->status = 'COMPLETE';
+        $pageSpeedAudit->url = $url;
+        $pageSpeedAudit->data_raw = $result->rawResults();
+        $pageSpeedAudit->score = $result->scores()['performance'];
+        $pageSpeedAudit->data_normalized = $result->scores();
+        $pageSpeedAudit->save();
+
+        \Log::info('Save Page Speed Audit to DB');
+
+        return $pageSpeedAudit->refresh();
+
+
+
+
+
+
 
         $client = new Client([
             'base_uri' => 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed',
