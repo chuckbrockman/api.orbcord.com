@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 
 use Spatie\Lighthouse\Enums\Category;
+use Spatie\Lighthouse\Enums\FormFactor;
 use Spatie\Lighthouse\Lighthouse;
 use App\Jobs\CalculateLightspeedScore;
 use App\Models\PageSpeedAudit;
@@ -63,6 +64,9 @@ class PageSpeedLighthouse extends Command
         // Get Lighthouse results
         $result = Lighthouse::url($url)
                     ->categories(Category::Performance)
+                    ->formFactor(FormFactor::Mobile)
+                    // ->throttleCpu()
+                    ->throttleNetwork()
                     ->run();
 
         // Save report audit results as file since it's a large amount of data
