@@ -4,13 +4,18 @@
             New CPRA submission from: {{ $referrer }}
         </td>
     </tr>
+    <tr>
+        <td>
+            Data ID: {{ $id }}
+        </td>
+    </tr>
 </table>
 
-<table style="width:100%; margin:10px; border: 1px solid #CCC;" cellpadding="10" cellspacing="10">
+{{-- <table style="width:100%; margin:10px; border: 1px solid #CCC;" cellpadding="10" cellspacing="10">
     @foreach ($request->all() as $index => $value )
         <tr>
             <td>{{ $index }}</td>
             <td>{{ $value }}</td>
         </tr>
     @endforeach
-</table>
+</table> --}}

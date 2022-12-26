@@ -14,7 +14,7 @@ class CfcontestCpra extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $request;
+    public $id;
 
     public $referrer;
 
@@ -23,9 +23,9 @@ class CfcontestCpra extends Mailable
      *
      * @return void
      */
-    public function __construct($request, $referrer)
+    public function __construct($id, $referrer)
     {
-        $this->request = $request;
+        $this->id = $id;
         $this->referrer = $referrer;
     }
 
@@ -38,7 +38,8 @@ class CfcontestCpra extends Mailable
     {
         return new Envelope(
             subject: 'cfcontests.com CPRA Submission',
-            from: new Address('cbrockman@vardapartners.com', 'Chuck Brockman')
+            from: new Address('no-reply@orbcord.com', 'Orbcord Inc.'),
+            replyTo: [ 'cf-developers@vardapartners.com' ]
         );
     }
 
