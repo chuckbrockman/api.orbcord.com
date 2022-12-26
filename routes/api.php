@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::apiResources([
-    'cfcontests' => App\Http\Controllers\Api\Cfcontest\CpraController::class,
+    'TKDFVBNODEEEOIYH' => App\Http\Controllers\Api\Cfcontest\CpraController::class,
 ]);
 
 Route::prefix('v1')->name('v1.')->group(function() {
