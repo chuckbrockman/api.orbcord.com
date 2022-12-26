@@ -39,7 +39,7 @@ class CreatePageSpeedSiteImage extends Command
 
         $lcpNumericValue =  (float) $pageSpeedAudit->data_normalized['breakdown']['largestContentfulPaint']['numericValue'] / 1000;
 
-        $visitorsPerMonth = $pageSpeedAudit->meta_data['visitorsPerMonth'] ?: 1000;
+        $visitorsPerMonth = $pageSpeedAudit->meta_data['visitorsPerMonth'] ?: 100000;
         $averageOrderValue = $pageSpeedAudit->meta_data['averageOrderValue'] ?: 50;
         $onePercentRevenue = ($visitorsPerMonth * $averageOrderValue) * 0.01;
 
@@ -112,7 +112,7 @@ class CreatePageSpeedSiteImage extends Command
         });
 
         // 1 second text
-        $rectangle->text('A 1 second increase in page load time would be worth:', $rectangle->width()/2, 328, function($font) {
+        $rectangle->text('A 1 second decrease in page load time could be worth', $rectangle->width()/2, 328, function($font) {
             $font->file(storage_path('fonts/Montserrat/static/Montserrat-Regular.ttf'));
             $font->size(36);
             $font->color([0, 0, 0, 1]);
@@ -135,6 +135,8 @@ class CreatePageSpeedSiteImage extends Command
 
         // Save images
         $canvas->save(storage_path('app/lighthouse/foo.jpg'), 80);
+
+        // \Storage::disk('dropbox')->put('Orbcord Inc./Performance Impact Score/' . rtrim(implode('_', parse_url($pageSpeedAudit->url)), '/_') . '_' . time() . '.jpg', $canvas->encode('jpg')->stream());
 
 
         return Command::SUCCESS;

@@ -33,7 +33,7 @@ class ColdOutreach extends Command
      */
     public function handle()
     {
-        $visitors = $this->argument('visitors') ?: 10000;
+        $visitors = $this->argument('visitors') ?: 100000;
         $aov = $this->argument('aov') ?: 50;
 
         $webhookData = new WebhookData;

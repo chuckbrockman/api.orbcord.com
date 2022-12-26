@@ -65,8 +65,8 @@ class PageSpeedLighthouse extends Command
         $result = Lighthouse::url($url)
                     ->categories(Category::Performance)
                     ->formFactor(FormFactor::Mobile)
-                    // ->throttleCpu()
-                    ->throttleNetwork()
+                    ->throttleCpu(0)
+                    // ->throttleNetwork()
                     ->run();
 
         // Save report audit results as file since it's a large amount of data
