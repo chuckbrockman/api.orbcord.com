@@ -38,7 +38,7 @@ class CfcontestCpra extends Mailable
     {
         return new Envelope(
             subject: 'cfcontests.com CPRA Submission',
-            from: new Address('no-reply@orbcord.com', 'Orbcord Inc.'),
+            from: new Address('cf-developers@vardapartners.com'),
             replyTo: [ 'cf-developers@vardapartners.com' ]
         );
     }
