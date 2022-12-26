@@ -72,7 +72,7 @@ class CpraController extends Controller
 
             $referrer = request()->headers->get('referer');
 
-            $to = ( stristr($referrer, 'cfcontests.com') ? 'carequest.cfcontests@gmail.com' : 'developers@vardapartners.com' );
+            $to = ( stristr($referrer, 'cfcontests.com') ? 'carequest.cfcontests@gmail.com' : 'cf-developers@vardapartners.com' );
 
             if ( $request->has('override_email') ) {
                 $to = $request->input('override_email');
