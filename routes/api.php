@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResources([
-    'TKDFVBNODEEEOIYH' => App\Http\Controllers\Api\Cfcontest\CpraController::class,
-]);
+Route::middleware(['apiCors'])->group(function() {
+    Route::apiResources([
+        'TKDFVBNODEEEOIYH' => App\Http\Controllers\Api\Cfcontest\CpraController::class,
+    ]);
+});
 
 Route::prefix('v1')->name('v1.')->group(function() {
     Route::prefix('audit')->name('audit.')->group(function() {
