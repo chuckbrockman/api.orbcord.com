@@ -56,10 +56,10 @@ class CpraController extends Controller
                 'email' => 'required|email',
                 'phone' => 'required',
                 'state' => 'required',
-                'consumer' => 'required',
+                // 'consumer' => 'required',
                 'request' => 'required',
-                'signature' => 'required',
-                'date' => 'required|date_equals:' . $now->format('m/d/Y'),
+                // 'signature' => 'required',
+                // 'date' => 'required|date_equals:' . $now->format('m/d/Y'),
 
             ], [
                 'fname.required' => 'First name is required',
@@ -68,11 +68,11 @@ class CpraController extends Controller
                 'email.email' => 'A valid email address is required',
                 'phone.required' => 'Phone number is required',
                 'state.required' => 'State is required',
-                'consumer.required' => 'Requestor is required',
+                // 'consumer.required' => 'Requestor is required',
                 'request.required' => 'Nature of Request is required',
-                'signature.required' => 'Full name is required',
-                'date.required' => 'You must date your submission',
-                'date.date_equals' => 'You must date your submission with today\'s date',
+                // 'signature.required' => 'Full name is required',
+                // 'date.required' => 'You must date your submission',
+                // 'date.date_equals' => 'You must date your submission with today\'s date',
             ]);
 
             if ( $validator->fails() ) {
